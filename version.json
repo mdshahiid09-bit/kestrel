@@ -1,8 +1,9 @@
 {
-  "version_code": 135,
-  "version_name": "2.0.4",
+  "version_code": 136,
+  "version_name": "2.0.5",
   "min_supported_version_code": 2,
   "changelog": [
+    "Brand new Kestrel Cyber Falcon app icon with developer code brackets",
     "Splash screen updated: now cleanly displays KESTREL wordmark",
     "Settings & About: updated repository to github.com/mdshahiid09-bit/kestrel and added Shahid developer profile",
     "Added 'Follow Shahid on Instagram' (@s4_shahid2) UI card in the sidebar drawer and settings",
