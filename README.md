@@ -1,39 +1,29 @@
 <div align="center">
 
-<img src="docs/readme/icon.svg" alt="AntiGem app icon" width="112">
+<img src="docs/readme/icon.svg" alt="Kestrel app icon" width="112">
 
-# AntiGem
+# Kestrel
 
-*A gem that defies gravity. A full coding environment, light enough to carry in your pocket.*
+*A powerful coding environment, light enough to carry in your pocket.*
 
 **An AI coding workspace for Android: Antigravity, Claude Code, OpenCode and Codex agents, a real Linux terminal, a code editor and a browser the agent can control, all in one app.**
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-Jetpack%20Compose-7F52FF?style=flat-square&logo=kotlin&logoColor=white)](https://developer.android.com/jetpack/compose)
 [![Go](https://img.shields.io/badge/Bridge-Go-00ADD8?style=flat-square&logo=go&logoColor=white)](https://go.dev)
 [![License](https://img.shields.io/badge/License-GPLv3-blue?style=flat-square)](LICENSE)
-[![Releases](https://img.shields.io/github/v/release/santoshkurmi/antigem?style=flat-square&label=Download)](https://github.com/santoshkurmi/antigem/releases)
+[![Releases](https://img.shields.io/github/v/release/mdshahiid09-bit/kestrel?style=flat-square&label=Download)](https://github.com/mdshahiid09-bit/kestrel/releases)
 
-[Download](https://github.com/santoshkurmi/antigem/releases) · [Website](https://santoshkurmi.github.io/antigem/) · [VS Code extension](https://github.com/Santoshkurmi/antigem_vscode_extension) · [Plugin SDK](extension_docs/README.md) · [User Guide](user_docs/README.md) · [WhatsApp community](https://chat.whatsapp.com/IGQX8q9zSVV0RarG70sclV?s=cl&p=a&mlu=4&ilr=4)
+[Download](https://github.com/mdshahiid09-bit/kestrel/releases) · [Developer Profile](https://github.com/mdshahiid09-bit) · [Instagram](https://www.instagram.com/s4_shahid2?gwpx=aG1yajZ3ZjBmNHJ2)
 
 <br>
 
-<img src="docs/readme/hero.webp" alt="AntiGem on a phone: code editor, live browser preview, Claude Code chat, Linux terminal and model picker" width="100%">
+<img src="docs/readme/hero.webp" alt="Kestrel on a phone: code editor, live browser preview, Claude Code chat, Linux terminal and model picker" width="100%">
 
 </div>
 
 > [!IMPORTANT]
-> ### AntiGem has a new home: `ai.antigem`
-> From **v2.0.0**, AntiGem is released under its own package name, **`ai.antigem`**. The old app was installed as `com.termux`, the Termux project's package name, which we used only so Termux packages could run at full speed. Shipping AntiGem under another project's name wasn't right, and it also stopped AntiGem from being installed next to the real Termux app. AntiGem now rewrites `com.termux` to `ai.antigem` inside each package as it installs (both names are 10 characters, so it is swapped byte for byte), with no proot and no slowdown.
->
-> - **The old app keeps working.** Its last version is **v1.2.1** and it gets no more updates. New features and fixes only come to `ai.antigem`.
-> - **You can use both.** The new app installs next to the old one; nothing in the old one is touched. Move over whenever you're ready.
-> - **To move your setup:**
->   1. In the old app: **Settings → Backups & Restore → Back up environment** (tick *Include SSH keys and sign-ins* to keep your logins; never share that file). It is saved to `Download/Antigem/backups`.
->   2. Install **`AntiGem-v2.x.x.apk`** from [Releases](https://github.com/santoshkurmi/antigem/releases) (version 2.0.0 or newer; versions below 2.0.0 are the old app).
->   3. On the new app's setup screen, choose **From a ZIP file** and pick your backup. Every `com.termux` path is rewritten for `ai.antigem` while it restores.
->   4. When everything works, uninstall the old app, and delete the backup if it contains your sign-ins.
->
-> The new app is brand new: a few packages, the Linux desktop (X11) and some `termux-*` commands are still being tested. If something breaks, please [open an issue](https://github.com/santoshkurmi/antigem/issues).
+> ### Welcome to Kestrel
+> Download the latest **`Kestrel-v2.x.x.apk`** from [Releases](https://github.com/mdshahiid09-bit/kestrel/releases). If something breaks, please [open an issue](https://github.com/mdshahiid09-bit/kestrel/issues).
 
 ---
 
