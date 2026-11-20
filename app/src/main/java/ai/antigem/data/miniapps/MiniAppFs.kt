@@ -14,7 +14,7 @@ import java.io.InputStream
 import java.io.RandomAccessFile
 
 /**
- * AntiGem.fs: every path goes through [MiniAppPermissions.resolve] (own "data/" folder always; anything else only
+ * Kestrel.fs: every path goes through [MiniAppPermissions.resolve] (own "data/" folder always; anything else only
  * inside what the storage permission granted, never other apps' data or the dot folders in home).
  */
 object MiniAppFs {
@@ -31,7 +31,7 @@ object MiniAppFs {
             "fs.read" -> {
                 val f = MiniAppPermissions.resolve(context, app, path, MiniAppPermissions.Need.READ)
                 if (!f.isFile) throw MiniAppError("NotFoundError", "No such file: $path")
-                if (f.length() > MAX_READ) throw MiniAppError("QuotaExceededError", "File too large to read at once; use AntiGem.fs.url()")
+                if (f.length() > MAX_READ) throw MiniAppError("QuotaExceededError", "File too large to read at once; use Kestrel.fs.url()")
                 if (p.optString("enc") == "base64") Base64.encodeToString(f.readBytes(), Base64.NO_WRAP) else f.readText()
             }
             "fs.write" -> {

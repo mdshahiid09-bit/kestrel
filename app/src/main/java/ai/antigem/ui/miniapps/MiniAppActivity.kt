@@ -95,7 +95,7 @@ sealed class NativeDialog {
 
 /**
  * A mini app on screen. The root page ([MiniAppActivity]) is its own task (own Recents card, icon and color);
- * pages opened with AntiGem.nav.push are [MiniAppPageActivity] in the same task, so back/swipe and the
+ * pages opened with Kestrel.nav.push are [MiniAppPageActivity] in the same task, so back/swipe and the
  * slide transitions are the system's.
  */
 open class MiniAppActivity : ComponentActivity(), MiniAppHost {
@@ -269,7 +269,7 @@ open class MiniAppActivity : ComponentActivity(), MiniAppHost {
 
     override fun onRendererGone(p: MiniAppPage) {
         if (p !== page) return
-        // a renderer crash must not take AntiGem down: start this page again
+        // a renderer crash must not take Kestrel down: start this page again
         startActivity(Intent(intent))
         finish()
     }
@@ -300,7 +300,7 @@ open class MiniAppActivity : ComponentActivity(), MiniAppHost {
         return MiniAppPermissions.state(this, app, name)
     }
 
-    /** AntiGem's own file explorer, to pick a folder on this phone; the real (canonical) folder, or null. */
+    /** Kestrel's own file explorer, to pick a folder on this phone; the real (canonical) folder, or null. */
     override suspend fun pickFolder(title: String): java.io.File? {
         val d = CompletableDeferred<Pair<String, ai.antigem.data.files.ExplorerSide>?>()
         folderPick = d to title
@@ -621,7 +621,7 @@ open class MiniAppActivity : ComponentActivity(), MiniAppHost {
     }
 }
 
-/** A page opened with AntiGem.nav.push: same task as the root, slides in and out. */
+/** A page opened with Kestrel.nav.push: same task as the root, slides in and out. */
 class MiniAppPageActivity : MiniAppActivity() {
     override val isPushed = true
 }

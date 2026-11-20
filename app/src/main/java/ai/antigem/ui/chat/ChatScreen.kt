@@ -2492,7 +2492,7 @@ fun ChatScreen(
                         }
                     }
 
-                    // `/plu:` browses custom AntiGem plugins and their skills; custom commands join the normal list
+                    // `/plu:` browses custom Kestrel plugins and their skills; custom commands join the normal list
                     val customCommands = ai.antigem.data.remote.CustomSlashCommands.commands.toList()
                     val installedPlugins = ai.antigem.ui.browser.BrowserExtensionManager.instance.extensions.toList()
                     val slashSuggestions = remember(slashQuery, effectiveSlashCommands, isSlashActive, customCommands, installedPlugins) {

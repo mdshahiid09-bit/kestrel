@@ -151,7 +151,7 @@ class AppUpdateManager(private val context: Context) {
             val totalBytes = body.contentLength()
 
             val targetDir = context.externalCacheDir ?: context.cacheDir
-            val targetFile = File(targetDir, "antiGem_update_${System.currentTimeMillis()}.apk")
+            val targetFile = File(targetDir, "kestrel_update_${System.currentTimeMillis()}.apk")
 
             body.byteStream().use { input ->
                 targetFile.outputStream().use { output ->

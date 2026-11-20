@@ -85,13 +85,13 @@ import ai.antigem.data.daemon.IdeDaemonManager
 import ai.antigem.data.daemon.IdeApiClient
 
 enum class SettingsSection(val title: String, val subtitle: String) {
-    MAIN("Settings & Preferences", "Configure your AntiGem experience"),
+    MAIN("Settings & Preferences", "Configure your Kestrel experience"),
     THEMES("Themes", "Light and dark mode, and the theme gallery"),
     APPEARANCE("Appearance", "Chat text size, chat list, header icons, the app switcher and Gemmy"),
     STEM_RENDERING("STEM & diagrams", "Chemistry, graphs, geometry, simulations, circuits and offline Mermaid in chats"),
     SERVERS("Servers & Connectivity", "Configure AGY Hub and IDE Bridge endpoints"),
-    CONNECT_PC("Connect to PC", "Use the agents on your PC (AntiGem in VS Code) from this phone"),
-    WEBVIEW_EXTENSIONS("Custom AntiGem Plugins", "Install and manage plugins: MCP tools and skills"),
+    CONNECT_PC("Connect to PC", "Use the agents on your PC (Kestrel in VS Code) from this phone"),
+    WEBVIEW_EXTENSIONS("Custom Kestrel Plugins", "Install and manage plugins: MCP tools and skills"),
     SLASH_COMMANDS("Slash Commands", "Your own / commands and what they expand to"),
     MCP("MCP Servers", "Model Context Protocol tools & integrations"),
     SKILLS_PLUGINS("Skills & Plugins", "Agent capabilities, Google plugins, and extensions"),
@@ -139,7 +139,7 @@ enum class SettingsSection(val title: String, val subtitle: String) {
     TERMUX_SUPPORT("Termux Support", "Termux:API and the X11 desktop"),
     TERMUX_API("Termux:API", "How termux-api commands are handled"),
     X11_DESKTOP("X11 Desktop", "Linux desktop apps with Termux:X11"),
-    CHANGELOG("What's new", "Every AntiGem version and what changed"),
+    CHANGELOG("What's new", "Every Kestrel version and what changed"),
     ABOUT("About & Info", "App version, package details, and bridge export");
 
     /** The Jarvis section this page shows (Settings → Jarvis → …), or null. */
@@ -999,7 +999,7 @@ private fun AntigravitySettingsMenu(
     )
 }
 
-/** Settings → Termux Support: the features that work with Termux companion apps (they share AntiGem's UID). */
+/** Settings → Termux Support: the features that work with Termux companion apps (they share Kestrel's UID). */
 @Composable
 private fun TermuxSupportMenu(
     cardBg: Color,
@@ -1150,8 +1150,8 @@ private fun rememberDeviceToolRows(onNavigate: (SettingsSection) -> Unit): Devic
 }
 
 /**
- * Settings → Termux Support → Termux:API: how termux-api commands are handled, by AntiGem's built-in
- * handlers or by the external Termux:API companion app (it shares AntiGem's UID).
+ * Settings → Termux Support → Termux:API: how termux-api commands are handled, by Kestrel's built-in
+ * handlers or by the external Termux:API companion app (it shares Kestrel's UID).
  */
 @Composable
 private fun TermuxApiSubScreen(cardBg: Color, cardBorder: BorderStroke) {
@@ -1206,13 +1206,13 @@ private fun TermuxApiSubScreen(cardBg: Color, cardBorder: BorderStroke) {
                     selected = mode == env.TERMUX_API_PROVIDER_BUILTIN,
                     title = "Built-in",
                     tag = "No app needed",
-                    description = "AntiGem handles clipboard, toast, torch, vibration, text to speech, battery, volume and notifications. Other commands (location, camera, sensors, SMS, …) say they need AntiGem's Termux:API app.",
+                    description = "Kestrel handles clipboard, toast, torch, vibration, text to speech, battery, volume and notifications. Other commands (location, camera, sensors, SMS, …) say they need Kestrel's Termux:API app.",
                     enabled = true,
                     onClick = { choose(env.TERMUX_API_PROVIDER_BUILTIN) }
                 )
                 TermuxApiModeOption(
                     selected = mode == env.TERMUX_API_PROVIDER_EXTERNAL,
-                    title = "AntiGem's Termux:API app",
+                    title = "Kestrel's Termux:API app",
                     tag = if (appInstalled) null else "Install it first",
                     description = "Every termux-* command goes to the app ($apiApp), all of them supported.",
                     enabled = appInstalled || mode == env.TERMUX_API_PROVIDER_EXTERNAL,
@@ -1247,7 +1247,7 @@ private fun TermuxApiSubScreen(cardBg: Color, cardBorder: BorderStroke) {
                     ) { Text("Install", fontSize = 12.sp, fontWeight = FontWeight.SemiBold) }
                 }
                 TermuxApiStatusRow(
-                    title = "AntiGem's Termux:API app",
+                    title = "Kestrel's Termux:API app",
                     detail = "Location, camera, sensors, SMS and the other commands ($apiApp)",
                     installed = appInstalled
                 ) {
@@ -1271,7 +1271,7 @@ private fun TermuxApiSubScreen(cardBg: Color, cardBorder: BorderStroke) {
             command = cmd,
             onDismiss = {
                 activeCommandExecution = null
-                // a package just installed: its own libexec/termux-api is moved aside and AntiGem's put back
+                // a package just installed: its own libexec/termux-api is moved aside and Kestrel's put back
                 scope.launch(Dispatchers.IO) { env.ensureTermuxApiDispatcher(context) }
             }
         )
@@ -1564,7 +1564,7 @@ private fun AppearanceSubScreen(
                         color = ClaudeTerracotta.copy(alpha = 0.15f)
                     ) {
                         Text(
-                            text = "How does AntiGem connect to AGY Hub?",
+                            text = "How does Kestrel connect to AGY Hub?",
                             fontSize = (13 * chatFontScale).sp,
                             color = MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
@@ -1584,7 +1584,7 @@ private fun AppearanceSubScreen(
                     ) {
                         Column(modifier = Modifier.padding(12.dp)) {
                             Text(
-                                text = "AntiGem connects via gRPC-Web to stream live agent steps and tool executions.",
+                                text = "Kestrel connects via gRPC-Web to stream live agent steps and tool executions.",
                                 fontSize = (13 * chatFontScale).sp,
                                 lineHeight = (18 * chatFontScale).sp,
                                 color = MaterialTheme.colorScheme.onSurface
@@ -2089,7 +2089,7 @@ private fun AppearanceSubScreen(
                                         color = MaterialTheme.colorScheme.onSurface
                                     )
                                     Text(
-                                        text = "Modern AntiGem styled icon & name",
+                                        text = "Modern Kestrel styled icon & name",
                                         fontSize = 10.5.sp,
                                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                                     )
@@ -2662,7 +2662,7 @@ private fun McpSubScreen(
             val presets = listOf(
                 // No spec: opens the picker for an installed plugin's own MCP
                 McpPreset("Custom Plugin MCP", "Pick an installed plugin", Icons.Outlined.Extension, ClaudeTerracotta, null),
-                McpPreset("Plugin Developer", "Build & test AntiGem plugins", Icons.Outlined.DeveloperMode, GeminiPurple,
+                McpPreset("Plugin Developer", "Build & test Kestrel plugins", Icons.Outlined.DeveloperMode, GeminiPurple,
                     localSpec(bridge.DEVELOPER_MCP_NAME, "/extension_developer")),
                 McpPreset("Mini App Developer", "Build, test & sign mini apps", androidx.compose.material.icons.Icons.Outlined.Apps, GeminiBlue,
                     localSpec(bridge.MINI_APP_DEVELOPER_MCP_NAME, "/mini_app_developer")),
@@ -4415,7 +4415,7 @@ private fun TerminalSubScreen(
                     )
 
                     Text(
-                        text = "AntiGem is wiping all local app data, rootfs, and settings.\n\nThe app will automatically close in $countdownSeconds seconds. Simply re-open AntiGem to start fresh.",
+                        text = "Kestrel is wiping all local app data, rootfs, and settings.\n\nThe app will automatically close in $countdownSeconds seconds. Simply re-open Kestrel to start fresh.",
                         fontSize = 13.5.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = androidx.compose.ui.text.style.TextAlign.Center,
@@ -6464,7 +6464,7 @@ private fun DataProtectionSubScreen(
 
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
-                    text = "Why enable this? AntiGem hosts a full local Linux environment with your Node/Python packages, Git repos, and active coding projects. An accidental drag-to-uninstall from the home screen wipes all of it permanently.\n\nActivating Android Device Administrator greys out the 'Uninstall' button at the OS level across phone launchers. You can safely disable this anytime if you wish to uninstall.",
+                    text = "Why enable this? Kestrel hosts a full local Linux environment with your Node/Python packages, Git repos, and active coding projects. An accidental drag-to-uninstall from the home screen wipes all of it permanently.\n\nActivating Android Device Administrator greys out the 'Uninstall' button at the OS level across phone launchers. You can safely disable this anytime if you wish to uninstall.",
                     fontSize = 12.sp,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
                     lineHeight = 16.sp
@@ -6609,7 +6609,7 @@ private fun DataProtectionSubScreen(
 
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
-                    text = "When enabled (default), tapping 'Clear Data' in Android's phone Settings > App Info opens AntiGem's Safe Space Manager instead of wiping everything instantly with one click. This prevents accidental wipes and allows safe cache-only cleanup.\n\nYou can toggle this off anytime if you prefer the standard raw Android 'Clear Data' button.",
+                    text = "When enabled (default), tapping 'Clear Data' in Android's phone Settings > App Info opens Kestrel's Safe Space Manager instead of wiping everything instantly with one click. This prevents accidental wipes and allows safe cache-only cleanup.\n\nYou can toggle this off anytime if you prefer the standard raw Android 'Clear Data' button.",
                     fontSize = 12.sp,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
                     lineHeight = 16.sp
@@ -6642,7 +6642,7 @@ private fun DataProtectionSubScreen(
             title = { Text("Disable Uninstall Protection?") },
             text = {
                 Text(
-                    "This will remove AntiGem's Device Admin status. The app will become vulnerable to accidental home-screen uninstallation.",
+                    "This will remove Kestrel's Device Admin status. The app will become vulnerable to accidental home-screen uninstallation.",
                     fontSize = 13.sp
                 )
             },
@@ -8529,14 +8529,14 @@ private fun AboutSubScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 ai.antigem.ui.components.AppIconImage(
-                    contentDescription = "AntiGem",
+                    contentDescription = "Kestrel",
                     modifier = Modifier
                         .size(64.dp)
                         .clip(RoundedCornerShape(16.dp))
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
-                    text = "AntiGem",
+                    text = "Kestrel",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface
@@ -8757,8 +8757,8 @@ private fun AboutSubScreen(
                                         updateCheckResultText = null
                                     } else {
                                         isUpdateCheckError = false
-                                        updateCheckResultText = "AntiGem is up to date (v${BuildConfig.VERSION_NAME})."
-                                        Toast.makeText(context, "AntiGem is up to date!", Toast.LENGTH_SHORT).show()
+                                        updateCheckResultText = "Kestrel is up to date (v${BuildConfig.VERSION_NAME})."
+                                        Toast.makeText(context, "Kestrel is up to date!", Toast.LENGTH_SHORT).show()
                                     }
                                 }.onFailure { err ->
                                     isUpdateCheckError = true

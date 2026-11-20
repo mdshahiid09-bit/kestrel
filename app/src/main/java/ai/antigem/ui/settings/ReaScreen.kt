@@ -102,7 +102,7 @@ fun ReaScreen(
         }
         if (!state.bootstrapInstalled) {
             InfoCard("Install the terminal first", cardBg, cardBorder) {
-                Hint("REA installs into AntiGem's terminal. Install it in Settings → Terminal & Shell, then come back here.")
+                Hint("REA installs into Kestrel's terminal. Install it in Settings → Terminal & Shell, then come back here.")
             }
             return@Column
         }
@@ -118,7 +118,7 @@ fun ReaScreen(
             cardBg, cardBorder,
             badgeColor = if (state.filesUpdate != null) Amber else QuotaGreen
         ) {
-            Hint("REA's setup scripts (rea-setup.sh, the rea-mcp launcher and the default tool groups) are not part of the app. They are downloaded from the AntiGem plugins repository when you need them.")
+            Hint("REA's setup scripts (rea-setup.sh, the rea-mcp launcher and the default tool groups) are not part of the app. They are downloaded from the Kestrel plugins repository when you need them.")
             SourceRow(state.source, enabled = !busy)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 when {
@@ -242,7 +242,7 @@ private fun ReaIntroCard(state: ReaManager.State, cardBg: Color, cardBorder: Bor
                     else -> Pill("Not set up", MaterialTheme.colorScheme.primary)
                 }
             }
-            Hint("Let agents take apart Android apps (APK, Flutter, React Native) and native code: decompile classes, read manifests and resources, inspect .so libraries, look at installed apps. REA is an open-source MCP server; AntiGem runs it in an Ubuntu container (proot-distro) inside the terminal.")
+            Hint("Let agents take apart Android apps (APK, Flutter, React Native) and native code: decompile classes, read manifests and resources, inspect .so libraries, look at installed apps. REA is an open-source MCP server; Kestrel runs it in an Ubuntu container (proot-distro) inside the terminal.")
             Hint("Install only the parts you need. Everything for APK analysis takes about 1 GB.")
             TextButton(onClick = { openReaUrl(context, ReaManager.REA_HOMEPAGE) }, contentPadding = PaddingValues(0.dp)) {
                 Text("About REA (github.com/morluto/rea)", fontSize = 12.5.sp)
@@ -266,7 +266,7 @@ private fun SourceRow(source: String, enabled: Boolean) {
     OutlinedTextField(
         value = text, onValueChange = { text = it; error = null }, singleLine = true,
         label = { Text("owner/repo@branch") }, isError = error != null,
-        supportingText = { Text(error ?: "A fork of the AntiGem plugins repository, for testing changes to the setup.") },
+        supportingText = { Text(error ?: "A fork of the Kestrel plugins repository, for testing changes to the setup.") },
         modifier = Modifier.fillMaxWidth()
     )
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -344,7 +344,7 @@ private fun InstallStep(state: ReaManager.State, cardBg: Color, cardBorder: Bord
             }
             if (!state.filesReady) Hint("The setup files are downloaded first.")
         } else {
-            Hint("Keep AntiGem open: the screen stays on while this runs. Stopping half way is safe; install the part again to finish it.")
+            Hint("Keep Kestrel open: the screen stays on while this runs. Stopping half way is safe; install the part again to finish it.")
             OutlinedButton(onClick = ReaManager::stop, colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)) {
                 Icon(Icons.Outlined.StopCircle, null, Modifier.size(18.dp)); Spacer(Modifier.width(8.dp)); Text("Stop")
             }
@@ -465,7 +465,7 @@ private fun SkillPluginCard(
         "REA skill for agents (optional)", cardBg, cardBorder,
         pill = if (state.pluginInstalled) "v${state.pluginVersion ?: "?"}" to QuotaGreen else "Optional" to MaterialTheme.colorScheme.primary
     ) {
-        Hint("A skills-only plugin from the AntiGem plugins repository. It teaches agents how to use REA well (installed apps, split APKs, Flutter, React Native, native code), to check that REA works and tell you what to fix, and how to install REA from the terminal if you prefer that to this page.")
+        Hint("A skills-only plugin from the Kestrel plugins repository. It teaches agents how to use REA well (installed apps, split APKs, Flutter, React Native, native code), to check that REA works and tell you what to fix, and how to install REA from the terminal if you prefer that to this page.")
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Button(enabled = !busy, onClick = ReaManager::installSkillPlugin) {
                 Icon(Icons.Outlined.Extension, null, Modifier.size(18.dp)); Spacer(Modifier.width(8.dp))
@@ -497,7 +497,7 @@ private fun WebsitesCard(state: ReaManager.State, cardBg: Color, cardBorder: Bor
             else -> "Off" to MaterialTheme.colorScheme.primary
         }
     ) {
-        Hint("Let agents analyze websites open in AntiGem's browser with REA: page structure, scripts and the APIs they call, libraries and frameworks, network and console errors, accessibility, storage and screenshots. REA only observes; agents open pages and click with the browser MCP.")
+        Hint("Let agents analyze websites open in Kestrel's browser with REA: page structure, scripts and the APIs they call, libraries and frameworks, network and console errors, accessibility, storage and screenshots. REA only observes; agents open pages and click with the browser MCP.")
         SwitchRow(
             "Website analysis",
             "Adds the Websites tool group and tells agents to analyze sites with REA first, screenshots included, and to use the browser MCP only for what REA cannot do.",
@@ -514,7 +514,7 @@ private fun WebsitesCard(state: ReaManager.State, cardBg: Color, cardBorder: Bor
         ) { ReaManager.setBrowserConnection(context, it) }
         Surface(shape = RoundedCornerShape(10.dp), color = Amber.copy(alpha = 0.12f)) {
             Text(
-                "While this is on, any app on this phone can connect to port ${bridge.port} and read or control the pages open in AntiGem's browser, including sites you are signed in to. Turn it on only while an agent analyzes a site and off when you are done. It also turns off when AntiGem closes.",
+                "While this is on, any app on this phone can connect to port ${bridge.port} and read or control the pages open in Kestrel's browser, including sites you are signed in to. Turn it on only while an agent analyzes a site and off when you are done. It also turns off when Kestrel closes.",
                 fontSize = 12.sp, color = Amber, modifier = Modifier.padding(10.dp)
             )
         }

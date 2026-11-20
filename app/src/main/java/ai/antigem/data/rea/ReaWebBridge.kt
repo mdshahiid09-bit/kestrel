@@ -161,7 +161,7 @@ object ReaWebBridge {
                     }
                     respond(out, 200, list)
                 }
-                else -> respond(out, 404, JSONObject().put("error", "Not available through AntiGem's REA bridge: $path"))
+                else -> respond(out, 404, JSONObject().put("error", "Not available through Kestrel's REA bridge: $path"))
             }
         } catch (e: Exception) {
             Log.w(TAG, "request failed: ${e.message}")
@@ -335,7 +335,7 @@ object ReaWebBridge {
         val tab = runBlocking { browserTargets() }[targetId]
         val out = client.getOutputStream()
         if (tab == null) {
-            respond(out, 403, JSONObject().put("error", "Not a browser tab: only AntiGem's browser tabs are shown to REA."))
+            respond(out, 403, JSONObject().put("error", "Not a browser tab: only Kestrel's browser tabs are shown to REA."))
             return
         }
         // No permessage-deflate: the bridge reads REA's requests to answer screenshots itself

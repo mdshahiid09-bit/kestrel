@@ -77,7 +77,7 @@ fun X11DesktopScreen(cardBg: Color, cardBorder: BorderStroke, onOpenAdbConnect: 
             Card(shape = RoundedCornerShape(14.dp), colors = CardDefaults.cardColors(containerColor = cardBg), border = cardBorder) {
                 Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text("Install the Linux environment first", fontSize = 14.5.sp, fontWeight = FontWeight.Bold)
-                    Hint("The desktop runs in AntiGem's terminal. Install it in Settings → Terminal & Shell, then come back here.")
+                    Hint("The desktop runs in Kestrel's terminal. Install it in Settings → Terminal & Shell, then come back here.")
                 }
             }
             return@Column
@@ -97,7 +97,7 @@ fun X11DesktopScreen(cardBg: Color, cardBorder: BorderStroke, onOpenAdbConnect: 
         ) {
             when {
                 app == null -> {
-                    Hint("AntiGem's own build of Termux:X11, the app that shows the desktop. It runs inside AntiGem, so Android keeps the desktop running at full speed while you use it.")
+                    Hint("Kestrel's own build of Termux:X11, the app that shows the desktop. It runs inside Kestrel, so Android keeps the desktop running at full speed while you use it.")
                     Button(enabled = !busy, onClick = X11DesktopManager::installApp) {
                         Icon(Icons.Outlined.Download, null, Modifier.size(18.dp)); Spacer(Modifier.width(8.dp)); Text("Download & install")
                     }
@@ -105,8 +105,8 @@ fun X11DesktopScreen(cardBg: Color, cardBorder: BorderStroke, onOpenAdbConnect: 
                 state.appOk -> {
                     Mono(
                         "Termux:X11 ${app.versionName ?: ""}".trim() + "\n" + when {
-                            app.sameProcess -> "AntiGem's build, runs inside AntiGem"
-                            app.antigemBuild -> "AntiGem's build"
+                            app.sameProcess -> "Kestrel's build, runs inside Kestrel"
+                            app.antigemBuild -> "Kestrel's build"
                             else -> "Official build"
                         }
                     )
@@ -114,8 +114,8 @@ fun X11DesktopScreen(cardBg: Color, cardBorder: BorderStroke, onOpenAdbConnect: 
                 }
                 else -> {
                     Text(
-                        if (app.antigemBuild) "This Termux:X11 doesn't share AntiGem's UID, so it can't run inside AntiGem. Uninstall it, then install it again."
-                        else "The official Termux:X11 is installed. It can't run inside AntiGem, and Android won't install AntiGem's build over it (they are signed differently). Uninstall it first, then install AntiGem's build.",
+                        if (app.antigemBuild) "This Termux:X11 doesn't share Kestrel's UID, so it can't run inside Kestrel. Uninstall it, then install it again."
+                        else "The official Termux:X11 is installed. It can't run inside Kestrel, and Android won't install Kestrel's build over it (they are signed differently). Uninstall it first, then install Kestrel's build.",
                         fontSize = 12.5.sp, color = MaterialTheme.colorScheme.error
                     )
                     Button(enabled = !busy, onClick = { X11DesktopManager.uninstallApp(context) }) {
@@ -285,9 +285,9 @@ private fun IntroCard(running: Boolean, cardBg: Color, cardBorder: BorderStroke)
                 Text("Linux desktop", fontSize = 15.sp, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
                 if (running) Pill("Running", QuotaGreen)
             }
-            Hint("Run Linux desktop apps (a browser, an IDE, office apps) from AntiGem's terminal. Termux:X11 shows the desktop.")
+            Hint("Run Linux desktop apps (a browser, an IDE, office apps) from Kestrel's terminal. Termux:X11 shows the desktop.")
             Text(
-                "The desktop runs inside AntiGem, so Android won't slow it down or stop it while you use it.",
+                "The desktop runs inside Kestrel, so Android won't slow it down or stop it while you use it.",
                 fontSize = 12.sp, color = QuotaGreen
             )
         }
@@ -337,7 +337,7 @@ private fun ManualSetupCard(desktop: Desktop, cardBg: Color, cardBorder: BorderS
                     }
                 }
             }
-            Hint("Don't install termux-x11-nightly from x11-repo: it only works with the official Termux:X11, not AntiGem's build.")
+            Hint("Don't install termux-x11-nightly from x11-repo: it only works with the official Termux:X11, not Kestrel's build.")
         }
     }
 }

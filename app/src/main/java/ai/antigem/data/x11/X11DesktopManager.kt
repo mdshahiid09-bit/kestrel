@@ -34,8 +34,8 @@ import java.util.concurrent.TimeUnit
  * Settings → X11 Desktop: sets up Termux:X11 (the app that shows the desktop, its companion
  * termux package with the `termux-x11` command, and a desktop such as XFCE) and starts/stops it.
  *
- * It uses AntiGem's own Termux:X11 build (github.com/Santoshkurmi/termux-x11), package ai.antigem.x11, signed
- * with AntiGem's key. That app joins AntiGem's UID (sharedUserId ai.antigem) and process, so Android keeps the
+ * It uses Kestrel's own Termux:X11 build (github.com/Santoshkurmi/termux-x11), package ai.antigem.x11, signed
+ * with Kestrel's key. That app joins Kestrel's UID (sharedUserId ai.antigem) and process, so Android keeps the
  * desktop at full speed while it is on screen. Its companion package is antigem-termux-x11 from the same
  * release; the official termux-x11-nightly's loader only starts the official Termux:X11, so it is replaced when
  * found. The fork keeps its Java names (com.termux.x11.*): its intent actions below are those.
@@ -44,7 +44,7 @@ object X11DesktopManager {
     private const val TAG = "X11Desktop"
     private const val PREFS = "x11_desktop"
 
-    /** AntiGem's Termux:X11: this app's package name + ".x11". */
+    /** Kestrel's Termux:X11: this app's package name + ".x11". */
     const val X11_PACKAGE = "${BuildConfig.APPLICATION_ID}.x11"
     const val COMPANION_ANTIGEM = "antigem-termux-x11"
     const val COMPANION_OFFICIAL = "termux-x11-nightly"
@@ -94,9 +94,9 @@ object X11DesktopManager {
 
     data class AppInfo(
         val versionName: String?,
-        /** Shares AntiGem's UID (and so its process): AntiGem's own build on the Shared UID build. */
+        /** Shares Kestrel's UID (and so its process): Kestrel's own build on the Shared UID build. */
         val sameProcess: Boolean,
-        /** Signed with AntiGem's key (AntiGem's build); otherwise the official one. */
+        /** Signed with Kestrel's key (Kestrel's build); otherwise the official one. */
         val antigemBuild: Boolean
     )
 
@@ -120,10 +120,10 @@ object X11DesktopManager {
         val message: String? = null,
         val isError: Boolean = false
     ) {
-        /** The companion package whose loader starts AntiGem's Termux:X11. */
+        /** The companion package whose loader starts Kestrel's Termux:X11. */
         val neededCompanion: String get() = COMPANION_ANTIGEM
 
-        /** Only AntiGem's Termux:X11, sharing AntiGem's UID, runs inside AntiGem. */
+        /** Only Kestrel's Termux:X11, sharing Kestrel's UID, runs inside Kestrel. */
         val appOk: Boolean get() = app?.sameProcess == true
         val companionOk: Boolean get() = companion == neededCompanion
         val desktopOk: Boolean get() = desktop in installedDesktops && dbusInstalled
@@ -264,7 +264,7 @@ object X11DesktopManager {
 
     /**
      * The X server's processes. `termux-x11` starts it with app_process --nice-name="termux-x11 ai.antigem.x11 …",
-     * and it runs under AntiGem's UID (it is a child of the terminal), so /proc shows it to us.
+     * and it runs under Kestrel's UID (it is a child of the terminal), so /proc shows it to us.
      */
     private fun xServerPids(): List<Int> = File("/proc").listFiles().orEmpty().mapNotNull { dir ->
         val pid = dir.name.toIntOrNull() ?: return@mapNotNull null
@@ -275,10 +275,10 @@ object X11DesktopManager {
 
     // ---------------- step 1: the Termux:X11 app ----------------
 
-    /** Downloads AntiGem's Termux:X11 build and opens the system installer. */
+    /** Downloads Kestrel's Termux:X11 build and opens the system installer. */
     fun installApp() = runTask(Task.APP) {
         val url = FORK_APK_URL
-        appendLog("Downloading AntiGem's Termux:X11 build…")
+        appendLog("Downloading Kestrel's Termux:X11 build…")
         appendLog(url)
         val dir = File(appContext.externalCacheDir ?: appContext.cacheDir, "x11").apply { mkdirs() }
         val apk = File(dir, "termux-x11.apk")
@@ -288,11 +288,11 @@ object X11DesktopManager {
         if (opened) {
             appendLog("Opened the installer. Confirm the install there.")
         } else {
-            report("Allow AntiGem to install apps (the settings page that just opened), then tap Install again.", isError = true)
+            report("Allow Kestrel to install apps (the settings page that just opened), then tap Install again.", isError = true)
         }
     }
 
-    /** Opens the system uninstall dialog for Termux:X11 (needed to switch between the official and AntiGem builds). */
+    /** Opens the system uninstall dialog for Termux:X11 (needed to switch between the official and Kestrel builds). */
     fun uninstallApp(context: Context) {
         runCatching {
             context.startActivity(
@@ -505,7 +505,7 @@ object X11DesktopManager {
     private fun appendLog(line: String) =
         _state.update { it.copy(log = (it.log + line).takeLast(400)) }
 
-    private fun userAgent() = "AntiGem/${BuildConfig.VERSION_NAME}"
+    private fun userAgent() = "Kestrel/${BuildConfig.VERSION_NAME}"
 
     /** The companion .deb of the fork's latest release (its file name carries the version). */
     private suspend fun latestForkDebUrl(): String = withContext(Dispatchers.IO) {

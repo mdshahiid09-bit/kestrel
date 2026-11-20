@@ -731,7 +731,7 @@ class MainActivity : ComponentActivity() {
     }
 
     /**
-     * Files opened with or shared to AntiGem. Shared conversations (.antigem) import directly; everything else (one file,
+     * Files opened with or shared to Kestrel. Shared conversations (.antigem) import directly; everything else (one file,
      * many files, or plain text / code) asks first: open in the code editor, preview, or save to a folder.
      */
     private fun handleIncomingFileIntent(intent: Intent?) {
@@ -756,7 +756,7 @@ class MainActivity : ComponentActivity() {
                 chatViewModel.loadSharedConversationFromUri(this, item.uri!!)
                 return
             }
-            // a mini app package opened with / shared to "AntiGem" instead of "Mini app installer": install it
+            // a mini app package opened with / shared to "Kestrel" instead of "Mini app installer": install it
             if (lower.endsWith(".agapp") || intent.type == ai.antigem.data.miniapps.MiniAppSigning.MIME) {
                 startActivity(Intent(this, ai.antigem.ui.miniapps.MiniAppInstallActivity::class.java).setAction(Intent.ACTION_VIEW)
                     .setDataAndType(item.uri, ai.antigem.data.miniapps.MiniAppSigning.MIME).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION))

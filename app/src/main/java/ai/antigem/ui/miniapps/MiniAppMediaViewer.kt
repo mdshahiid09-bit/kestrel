@@ -59,7 +59,7 @@ import java.io.File
 class MediaItem(val file: File?, val url: String?, val video: Boolean, val title: String)
 
 /**
- * AntiGem.ui.viewMedia: a native full-screen viewer, like a phone's gallery. Swipe between items, pinch / double-tap
+ * Kestrel.ui.viewMedia: a native full-screen viewer, like a phone's gallery. Swipe between items, pinch / double-tap
  * to zoom photos (HEIC too, decoded by Android), videos in the system player with its controls, share, close.
  * The result is the index the user was on when they closed it.
  */

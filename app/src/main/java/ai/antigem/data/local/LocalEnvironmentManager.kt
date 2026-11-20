@@ -233,7 +233,7 @@ object LocalEnvironmentManager {
             } ?: ""
             val script = """
                 |#!$prefix/bin/bash
-                |# Claude Code launcher written by AntiGem on every start (edits are overwritten).
+                |# Claude Code launcher written by Kestrel on every start (edits are overwritten).
                 |# The official Claude binary needs glibc: start the newest installed version through the bundled loader.
                 |# Claude's updater only changes ~/.local/share/claude/versions and ~/.local/bin/claude, never this file.
                 |VERSIONS_DIR="$home/.local/share/claude/versions"
@@ -257,11 +257,11 @@ object LocalEnvironmentManager {
                 |    done
                 |fi
                 |if [ -z "${'$'}TARGET" ]; then
-                |    echo "Claude Code is not installed. Install it in AntiGem: Settings > Claude Code > Account & CLI." >&2
+                |    echo "Claude Code is not installed. Install it in Kestrel: Settings > Claude Code > Account & CLI." >&2
                 |    exit 127
                 |fi
                 |if [ ! -x "${'$'}LOADER" ]; then
-                |    echo "The glibc runtime is missing (${'$'}LOADER). Reopen AntiGem to restore it." >&2
+                |    echo "The glibc runtime is missing (${'$'}LOADER). Reopen Kestrel to restore it." >&2
                 |    exit 127
                 |fi
                 |# termux-exec is a bionic library: it must not be preloaded into the glibc process
@@ -301,9 +301,9 @@ object LocalEnvironmentManager {
     }
 
     const val PREF_TERMUX_API_PROVIDER = "termux_api_provider"
-    /** The termux-* commands are handled by AntiGem itself (the default). */
+    /** The termux-* commands are handled by Kestrel itself (the default). */
     const val TERMUX_API_PROVIDER_BUILTIN = "builtin"
-    /** The termux-* commands all go to AntiGem's Termux:API app ([termuxApiAppPackage]). */
+    /** The termux-* commands all go to Kestrel's Termux:API app ([termuxApiAppPackage]). */
     const val TERMUX_API_PROVIDER_EXTERNAL = "external"
     private const val PREF_TERMUX_API_PACKAGE_INSTALLED = "termux_api_package_auto_installed"
 
@@ -327,7 +327,7 @@ object LocalEnvironmentManager {
         }
     }
 
-    /** AntiGem's Termux:API companion app: this app's package name + ".api", sharing its UID (sharedUserId). */
+    /** Kestrel's Termux:API companion app: this app's package name + ".api", sharing its UID (sharedUserId). */
     fun termuxApiAppPackage(context: Context): String = "${context.packageName}.api"
 
     fun isTermuxApiAppInstalled(context: Context): Boolean = try {
@@ -341,7 +341,7 @@ object LocalEnvironmentManager {
     fun isTermuxApiPackageInstalled(context: Context): Boolean =
         File(getPrefixDir(context), "var/lib/dpkg/info/termux-api.list").isFile
 
-    /** The package's real binary was overwritten by older AntiGem versions, which wrote their dispatcher through its symlink. */
+    /** The package's real binary was overwritten by older Kestrel versions, which wrote their dispatcher through its symlink. */
     private fun isTermuxApiPackageDamaged(context: Context): Boolean {
         val broadcast = File(getPrefixDir(context), "libexec/termux-api-broadcast")
         return broadcast.isFile && try {
@@ -350,7 +350,7 @@ object LocalEnvironmentManager {
     }
 
     /**
-     * Writes AntiGem's dispatcher at libexec/termux-api, which every termux-* command runs. The termux-api package's
+     * Writes Kestrel's dispatcher at libexec/termux-api, which every termux-* command runs. The termux-api package's
      * own one there (a symlink to termux-api-broadcast, which sends to the companion app) is moved to
      * termux-api.distrib with dpkg-divert, so neither overwrites the other: package updates go to .distrib, and
      * nothing is ever written through the symlink. The script holds the mode and whether the app is installed, so it
@@ -378,7 +378,7 @@ object LocalEnvironmentManager {
 
     /**
      * Installs the termux-api package (the termux-* commands) when it is missing, once: a user who removes it later
-     * keeps it removed. Repairs it when older AntiGem versions damaged it. In the background; needs the network
+     * keeps it removed. Repairs it when older Kestrel versions damaged it. In the background; needs the network
      * (without it, tried again at the next start).
      */
     fun ensureTermuxApiPackage(context: Context) {
@@ -410,7 +410,7 @@ object LocalEnvironmentManager {
 
     /**
      * The dispatcher (see [ensureTermuxApiDispatcher]): every call goes to the one handler of the chosen mode.
-     * [external]: AntiGem's Termux:API app ([appInstalled]: whether it is installed now); else AntiGem's receiver.
+     * [external]: Kestrel's Termux:API app ([appInstalled]: whether it is installed now); else Kestrel's receiver.
      */
     internal fun termuxApiDispatcherScript(pkg: String, external: Boolean, appInstalled: Boolean): String {
         val prefix = "/data/data/$pkg/files/usr"
@@ -419,28 +419,28 @@ object LocalEnvironmentManager {
         val settings = "Settings → Termux Support → Termux:API"
         val header = """
             |#!$prefix/bin/bash
-            |# Written by AntiGem (edits are overwritten). The termux-* commands (termux-api package) run this with an API
-            |# method. $settings chooses who handles them: AntiGem itself (built-in) or AntiGem's Termux:API app.
+            |# Written by Kestrel (edits are overwritten). The termux-* commands (termux-api package) run this with an API
+            |# method. $settings chooses who handles them: Kestrel itself (built-in) or Kestrel's Termux:API app.
             |""".trimMargin()
         if (external) {
             val route = if (appInstalled) """
-                |# Mode: AntiGem's Termux:API app ($apiApp). Every call goes to it, through the termux-api package's own
+                |# Mode: Kestrel's Termux:API app ($apiApp). Every call goes to it, through the termux-api package's own
                 |# binary (termux-api.distrib: moved there with dpkg-divert, so it and this file never overwrite each other).
                 |exec '$prefix/libexec/termux-api.distrib' "${'$'}@"
                 |""" else """
-                |# Mode: AntiGem's Termux:API app, which isn't installed (the app checks when it writes this file).
-                |echo "termux-api: AntiGem's Termux:API app ($apiApp) isn't installed. Install it, or choose Built-in in $settings." >&2
+                |# Mode: Kestrel's Termux:API app, which isn't installed (the app checks when it writes this file).
+                |echo "termux-api: Kestrel's Termux:API app ($apiApp) isn't installed. Install it, or choose Built-in in $settings." >&2
                 |exit 1
                 |"""
             return header + "\n" + route.trimMargin() + "\n"
         }
         val body = """
-            |# Mode: built-in. Only the methods AntiGem's receiver handles (TermuxApiReceiver.BUILT_IN_METHODS).
+            |# Mode: built-in. Only the methods Kestrel's receiver handles (TermuxApiReceiver.BUILT_IN_METHODS).
             |METHOD="${'$'}1"
             |case "${'$'}METHOD" in
             |    $builtin) ;;
             |    *)
-            |        echo "termux-api: ${'$'}METHOD isn't built into AntiGem. Install AntiGem's Termux:API app and choose it in $settings." >&2
+            |        echo "termux-api: ${'$'}METHOD isn't built into Kestrel. Install Kestrel's Termux:API app and choose it in $settings." >&2
             |        exit 1
             |        ;;
             |esac
@@ -737,7 +737,7 @@ object LocalEnvironmentManager {
                     val targetUrl = rootfsUrl(source.mirror)
                     val targetAsset = "$HARDCODED_ROOTFS_ASSET · ${source.mirror.label}"
                     val targetSizeBytes = HARDCODED_ROOTFS_SIZE_BYTES
-                    val titlePrefix = "AntiGem Rootfs (${source.mirror.label})"
+                    val titlePrefix = "Kestrel Rootfs (${source.mirror.label})"
 
                     _installerState.value = LocalInstallerState.Downloading(
                         bytesDownloaded = 0L,
@@ -2001,7 +2001,7 @@ object LocalEnvironmentManager {
         val bashrc = File(homeDir, ".bashrc")
         if (!bashrc.exists()) {
             bashrc.writeText(
-                """# AntiGem Local Linux Environment
+                """# Kestrel Local Linux Environment
 export PREFIX="${prefixDir.absolutePath}"
 export HOME="${homeDir.absolutePath}"
 export PATH="${homeDir.absolutePath}/.local/bin:${binDir.absolutePath}:${binDir.absolutePath}/applets:/system/bin:/system/xbin"

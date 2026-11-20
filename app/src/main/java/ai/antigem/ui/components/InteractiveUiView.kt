@@ -267,7 +267,7 @@ fun InteractiveUiView(
                                         InteractiveUiJsBridge(ctx) { msg ->
                                             Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show()
                                         },
-                                        "antiGemini"
+                                        "kestrelini"
                                     )
                                 }
                             },
@@ -370,7 +370,7 @@ fun InteractiveUiView(
                                             InteractiveUiJsBridge(ctx) { msg ->
                                                 Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show()
                                             },
-                                            "antiGemini"
+                                            "kestrelini"
                                         )
                                         loadDataWithBaseURL("https://antigravity.local/", fullHtml, "text/html", "UTF-8", null)
                                     }

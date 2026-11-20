@@ -72,7 +72,7 @@ object AgyOkHttpClient {
                 }
 
                 val requestBuilder = chain.request().newBuilder()
-                    .header("User-Agent", "antiGem-Android-Native")
+                    .header("User-Agent", "kestrel-Android-Native")
                     .header("X-Grpc-Web", "1")
                     .header(AuthPreferences.currentFramedHeader, token.ifBlank { "true" })
                 // Connect to PC: VS Code runs the standard agy (not patched like this app's), which reads the usual header

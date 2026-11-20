@@ -146,7 +146,7 @@ class AuthPreferences(private val context: Context) {
             set(value) { storedSecurityToken = value }
 
         // ---- Server mode: an extra header the reverse proxy (nginx / Apache / Caddy) in front of the server checks ----
-        const val DEFAULT_EDGE_HEADER_NAME = "X-AntiGem-Key"
+        const val DEFAULT_EDGE_HEADER_NAME = "X-Kestrel-Key"
         const val EDGE_VALUE_LENGTH = 20
         private const val EDGE_CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 

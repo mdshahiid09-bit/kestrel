@@ -25,7 +25,7 @@ object MiniAppIntents {
     }
 }
 
-/** Network and battery, for AntiGem.device.status() and the 'network' / 'battery' events. */
+/** Network and battery, for Kestrel.device.status() and the 'network' / 'battery' events. */
 object MiniAppDeviceStatus {
     fun network(context: Context): JSONObject {
         val cm = context.getSystemService(ConnectivityManager::class.java)

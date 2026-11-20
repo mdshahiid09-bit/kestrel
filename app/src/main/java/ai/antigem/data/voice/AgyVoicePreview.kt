@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit
 
 /** The headers every request to the agy hub carries (security header with the hub token, proxy header). */
 internal fun Request.Builder.agyHubHeaders(): Request.Builder {
-    header("User-Agent", "antiGem-Android-Native")
+    header("User-Agent", "kestrel-Android-Native")
     val token = AgyCsrfManager.instance.token
     if (token.isNotBlank()) header(AuthPreferences.currentFramedHeader, token)
     // Connect to PC: VS Code's agy is not patched, it reads the standard header

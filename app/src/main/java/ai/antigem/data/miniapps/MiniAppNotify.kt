@@ -48,7 +48,7 @@ object MiniAppNotify {
     private const val CHANNEL_ALERTS = "mini_apps"
     private const val CHANNEL_ONGOING = "mini_apps_ongoing"
     private const val CHANNEL_STATUS = "mini_apps_status"
-    /** AntiGem's whole package may show ~50 notifications: no single mini app may take them all. */
+    /** Kestrel's whole package may show ~50 notifications: no single mini app may take them all. */
     const val MAX_ACTIVE_PER_APP = 12
     const val EXTRA_APP = "mini_app_id"
     const val EXTRA_NOTIF = "mini_app_notif"
@@ -197,7 +197,7 @@ object MiniAppNotify {
         val ongoing = p.optBoolean("ongoing")
         val silent = p.optBoolean("silent")
         val channel = p.optString("channel").takeIf { it.isNotBlank() }?.let { c ->
-            channelId(app.id, c).also { if (Build.VERSION.SDK_INT >= 26 && nm.getNotificationChannel(it) == null) throw MiniAppError("NotFoundError", "No channel \"$c\": create it with AntiGem.notify.channel()") }
+            channelId(app.id, c).also { if (Build.VERSION.SDK_INT >= 26 && nm.getNotificationChannel(it) == null) throw MiniAppError("NotFoundError", "No channel \"$c\": create it with Kestrel.notify.channel()") }
         } ?: when { silent -> CHANNEL_STATUS; ongoing -> CHANNEL_ONGOING; else -> CHANNEL_ALERTS }
         val title = p.optString("title").take(200)
         val body = p.optString("body").take(4000)
@@ -221,7 +221,7 @@ object MiniAppNotify {
             .setContentIntent(PendingIntent.getActivity(context, req, launchIntent(context, app, tag, p.optString("tapAction").ifBlank { "tap" }), flags()))
             .setDeleteIntent(PendingIntent.getBroadcast(context, req, broadcastIntent(context, app, tag, "dismiss"), flags()))
 
-        // small icon: the app's own monochrome glyph if it has one, else AntiGem's
+        // small icon: the app's own monochrome glyph if it has one, else Kestrel's
         val small = p.optString("smallIcon").takeIf { it.isNotBlank() }?.let { bitmap(context, app, it, 96) }
         if (small != null) b.setSmallIcon(IconCompat.createWithBitmap(small)) else b.setSmallIcon(R.mipmap.ic_launcher)
         val large = p.optString("icon").let { if (it.isBlank()) MiniApps.iconBitmap(app, 128) else bitmap(context, app, it, 256) }
@@ -230,8 +230,8 @@ object MiniAppNotify {
 
         p.optString("category").takeIf { it.isNotBlank() }?.let { b.setCategory(it) }
         b.setVisibility(when (p.optString("visibility")) { "public" -> NotificationCompat.VISIBILITY_PUBLIC; "secret" -> NotificationCompat.VISIBILITY_SECRET; else -> NotificationCompat.VISIBILITY_PRIVATE })
-        // Always a group: without one Android bundles every AntiGem notification together (mini apps mixed with each
-        // other and with AntiGem's own). Default: the notification's own, so it stands alone.
+        // Always a group: without one Android bundles every Kestrel notification together (mini apps mixed with each
+        // other and with Kestrel's own). Default: the notification's own, so it stands alone.
         val group = p.optString("group").takeIf { it.isNotBlank() }
         b.setGroup("miniapp:${app.id}:" + (group ?: "n:$tag"))
         if (group != null) b.setGroupSummary(p.optBoolean("groupSummary"))
@@ -312,7 +312,7 @@ object MiniAppNotify {
             }
         }
 
-        if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) throw MiniAppError("NotAllowedError", "Notifications are turned off for AntiGem in Android settings")
+        if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) throw MiniAppError("NotAllowedError", "Notifications are turned off for Kestrel in Android settings")
         nm.notify(tagOf(app.id, tag), req, b.build())
         lastShown["${app.id}\u0000$tag"] = JSONObject(p.toString()).put("id", tag)
         return JSONObject().put("id", tag)

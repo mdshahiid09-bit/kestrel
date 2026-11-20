@@ -52,7 +52,7 @@ object MiniAppNet {
     class Owner(val context: Context, val app: MiniApp)
     /** Tag for a request that must not send or store cookies (fetch with credentials: "omit"). */
     object NoCookies
-    /** Tag for AntiGem's own requests made for an app (the developer tools' scripts): not limited to the app's hosts. */
+    /** Tag for Kestrel's own requests made for an app (the developer tools' scripts): not limited to the app's hosts. */
     object SystemRequest
 
     // ---------------- where an app may connect ----------------
@@ -185,7 +185,7 @@ object MiniAppNet {
             .build()
     }
 
-    /** AntiGem's own requests for an app (developer tools): any host, but still never this phone's servers. */
+    /** Kestrel's own requests for an app (developer tools): any host, but still never this phone's servers. */
     private fun systemClient(context: Context, app: MiniApp): OkHttpClient = clients.getOrPut("\u0000system:" + app.id) {
         base.newBuilder().socketFactory(GuardedSockets(context.applicationContext, app)).build()
     }
@@ -212,7 +212,7 @@ object MiniAppNet {
     }
 
     private fun ua(context: Context): String = userAgent ?: runCatching { WebSettings.getDefaultUserAgent(context) }.getOrDefault("Mozilla/5.0 (Linux; Android)")
-        .plus(" AntiGemMiniApp/${MiniApps.SDK_VERSION}").also { userAgent = it }
+        .plus(" KestrelMiniApp/${MiniApps.SDK_VERSION}").also { userAgent = it }
 
     private fun check(context: Context, app: MiniApp, url: HttpUrl) {
         MiniAppPermissions.checkNetwork(context, app, url.host, url.port)?.let { throw MiniAppError("NotAllowedError", "Network request to ${url.host} blocked: $it") }

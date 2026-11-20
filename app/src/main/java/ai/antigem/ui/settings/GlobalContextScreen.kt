@@ -88,14 +88,14 @@ fun GlobalContextScreen() {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Icon(Icons.Outlined.Lock, null, tint = muted, modifier = Modifier.size(12.dp))
                             Spacer(Modifier.width(4.dp))
-                            Text("By AntiGem · read-only · first message", fontSize = 12.sp, color = muted)
+                            Text("By Kestrel · read-only · first message", fontSize = 12.sp, color = muted)
                         }
                     }
                     Switch(checked = builtInOn, onCheckedChange = { GlobalContext.setBuiltInEnabled(it) })
                 }
                 Spacer(Modifier.height(8.dp))
                 Text(
-                    "Tells the agent " + (if (GlobalContext.runsOnPhone) "that it runs in AntiGem's Linux system on Android (use \$TMPDIR, not /tmp; pkg, not sudo) and " else "") +
+                    "Tells the agent " + (if (GlobalContext.runsOnPhone) "that it runs in Kestrel's Linux system on Android (use \$TMPDIR, not /tmp; pkg, not sudo) and " else "") +
                         "how to show images, videos and files in this chat. Jarvis and the chats it starts get it too.",
                     fontSize = 13.sp, lineHeight = 18.sp
                 )

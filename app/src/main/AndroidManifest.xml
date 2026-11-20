@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- sharedUserId: AntiGem's own Termux:API and Termux:X11 apps (same signing key) share its files. Adding or removing it
+<!-- sharedUserId: Kestrel's own Termux:API and Termux:X11 apps (same signing key) share its files. Adding or removing it
      later would force users to reinstall, so it stays. It is the app's package name: ai.antigem (release), ai.antidev
      (debug), so the two never claim the same shared user with different signing keys. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -337,14 +337,14 @@
             android:exported="true"
             android:theme="@style/Theme.AntiGem.MiniApp"
             android:configChanges="uiMode|orientation|screenSize|screenLayout|smallestScreenSize" />
-        <!-- "Get apps": the mini apps of AntiGem's GitHub catalog -->
+        <!-- "Get apps": the mini apps of Kestrel's GitHub catalog -->
         <activity
             android:name="ai.antigem.ui.miniapps.MiniAppStoreActivity"
             android:exported="false"
             android:theme="@style/Theme.AntiGem.MiniApp"
             android:configChanges="uiMode|orientation|screenSize|screenLayout|smallestScreenSize" />
         <!-- The mini app installer (like Android's for .apk): opening an .agapp from any app (WhatsApp, Telegram, Gmail,
-             Files, a browser's downloads, AntiGem's file explorer) shows the install / update screen over that app -->
+             Files, a browser's downloads, Kestrel's file explorer) shows the install / update screen over that app -->
         <activity
             android:name="ai.antigem.ui.miniapps.MiniAppInstallActivity"
             android:exported="true"
@@ -353,7 +353,7 @@
             android:taskAffinity=""
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboard|keyboardHidden">
-            <!-- the package type (AntiGem shares packages with it, servers can send it) -->
+            <!-- the package type (Kestrel shares packages with it, servers can send it) -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -469,7 +469,7 @@
         <activity
             android:name="ai.antigem.ui.settings.ManageSpaceActivity"
             android:exported="true"
-            android:label="AntiGem Space Manager"
+            android:label="Kestrel Space Manager"
             android:theme="@style/Theme.Gemini">
             <intent-filter>
                 <action android:name="android.intent.action.MANAGE_SPACE" />

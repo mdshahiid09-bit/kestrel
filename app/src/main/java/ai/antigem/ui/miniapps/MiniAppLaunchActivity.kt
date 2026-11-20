@@ -36,7 +36,7 @@ class MiniAppLaunchActivity : Activity() {
                 MiniAppRuntime.deliverNotificationEvent(this, app, event, preferBackground = false)
             }
             if (link != null && link.pathSegments.size > 1) {
-                // a link into the app: it decides where to go (AntiGem.on('intent', …) with action "view")
+                // a link into the app: it decides where to go (Kestrel.on('intent', …) with action "view")
                 val params = JSONObject().apply { link.queryParameterNames.forEach { put(it, link.getQueryParameter(it)) } }
                 MiniAppRuntime.deliverIntent(app.id, JSONObject().put("action", "view").put("url", link.toString())
                     .put("path", link.pathSegments.drop(1).joinToString("/")).put("params", params).put("from", JSONObject().put("id", "link").put("name", "Link")))

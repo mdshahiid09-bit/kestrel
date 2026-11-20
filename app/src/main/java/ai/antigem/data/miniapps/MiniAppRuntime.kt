@@ -75,7 +75,7 @@ object MiniAppRuntime {
     /**
      * A tap, button, reply or swipe-away on one of the app's notifications. It goes to the app if it is on screen;
      * else, for buttons that don't open the app ([preferBackground]), to its background script
-     * (`AntiGem.background.on('notification', …)`); else it waits until the app is opened.
+     * (`Kestrel.background.on('notification', …)`); else it waits until the app is opened.
      */
     fun deliverNotificationEvent(context: Context, app: MiniApp, event: JSONObject, preferBackground: Boolean) {
         // on screen: every open page of the app gets it (each listens for what it handles)

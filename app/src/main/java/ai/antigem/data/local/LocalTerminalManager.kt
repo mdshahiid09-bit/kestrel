@@ -19,7 +19,7 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.util.Properties
 
-/** PATH for SSH sessions; also finds the tools of AntiGem or Termux when the host is an Android phone. */
+/** PATH for SSH sessions; also finds the tools of Kestrel or Termux when the host is an Android phone. */
 const val UNIVERSAL_SSH_PATH =
     "export PATH=\"\$HOME/.local/bin:\$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/data/data/ai.antigem/files/usr/bin:/data/data/com.termux/files/usr/bin:\$PATH\"; "
 
@@ -71,7 +71,7 @@ class LocalPtySession(
     /** False for one-off runs (the Run panel): they show their own status, so no "Press Enter to close tab" line. */
     val showExitNotice: Boolean = true
 ) : TerminalSessionClient {
-    private val TAG = "AntiGemTerminal"
+    private val TAG = "KestrelTerminal"
 
     var assignedPaneId: String? = initialPaneId
     var assignedWindowId: String? = initialWindowId
@@ -1077,7 +1077,7 @@ class LocalPtySession(
 }
 
 object LocalTerminalManager {
-    private const val TAG = "AntiGemTerminal"
+    private const val TAG = "KestrelTerminal"
     private const val TMUX_SESSION_NAME = "antigem"
 
     var lastKnownCols: Int = 60

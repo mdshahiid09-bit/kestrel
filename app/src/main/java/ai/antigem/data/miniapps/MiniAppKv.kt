@@ -7,7 +7,7 @@ import java.io.File
 import java.util.concurrent.Executors
 
 /**
- * Native key-value store behind localStorage and AntiGem.storage (one SQLite file per app, kv.db).
+ * Native key-value store behind localStorage and Kestrel.storage (one SQLite file per app, kv.db).
  * Reads come from an in-memory copy (handed to each page at load, so JS reads are synchronous and instant);
  * writes update the copy at once and reach SQLite on a background thread.
  */

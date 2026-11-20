@@ -381,7 +381,7 @@ object LocalServerManager {
         LocalEnvironmentManager.ensureClaudeWrapper(appContext)
         // after an app update the package hooks and the dpkg wrapper are refreshed here too, not only in a new terminal
         TermuxRelocation.ensurePackageHooks(appContext)
-        // termux-* commands: AntiGem's dispatcher, and the termux-api package that provides the commands
+        // termux-* commands: Kestrel's dispatcher, and the termux-api package that provides the commands
         LocalEnvironmentManager.ensureTermuxApiDispatcher(appContext)
         LocalEnvironmentManager.ensureTermuxApiPackage(appContext)
 

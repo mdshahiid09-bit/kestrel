@@ -121,7 +121,7 @@ class MiniAppPage(private val host: MiniAppHost, app: MiniApp, override val path
             mediaPlaybackRequiresUserGesture = false
             setSupportMultipleWindows(false)
             javaScriptCanOpenWindowsAutomatically = false
-            userAgentString = "$userAgentString AntiGemMiniApp/${MiniApps.SDK_VERSION}"
+            userAgentString = "$userAgentString KestrelMiniApp/${MiniApps.SDK_VERSION}"
         }
         if (WebViewFeature.isFeatureSupported(WebViewFeature.SAFE_BROWSING_ENABLE)) WebSettingsCompat.setSafeBrowsingEnabled(settings, false)
         overScrollMode = View.OVER_SCROLL_NEVER
@@ -537,7 +537,7 @@ class MiniAppPage(private val host: MiniAppHost, app: MiniApp, override val path
         "nav.push" -> { host.push(p.optString("path")); null }
         "nav.back" -> { host.closePage(); null }
         "nav.close" -> { host.closeApp(); null }
-        // ---- AntiGem MCP tools
+        // ---- Kestrel MCP tools
         "mcp.list", "mcp.call" -> mcp(m, p)
         // ---- dev
         "dev.console" -> { host.showConsole(); null }
@@ -546,7 +546,7 @@ class MiniAppPage(private val host: MiniAppHost, app: MiniApp, override val path
         else -> throw MiniAppError("NotSupportedError", "Unknown method $m")
     }
 
-    /** ops: [{a: "l" (localStorage) | "s" (AntiGem.storage) | "ss" (sessionStorage), op: set|del|clear, k, v}] */
+    /** ops: [{a: "l" (localStorage) | "s" (Kestrel.storage) | "ss" (sessionStorage), op: set|del|clear, k, v}] */
     private fun kv(p: JSONObject) {
         val ops = p.optJSONArray("ops") ?: return
         val shared = JSONArray()
@@ -571,7 +571,7 @@ class MiniAppPage(private val host: MiniAppHost, app: MiniApp, override val path
     }
 
     /**
-     * AntiGem.intent.send: the user picks which app gets it (mini apps that declared they accept it, or Android's
+     * Kestrel.intent.send: the user picks which app gets it (mini apps that declared they accept it, or Android's
      * own share sheet). A file goes along as a one-day read grant for that file only.
      */
     private suspend fun sendIntent(p: JSONObject): Any? {
@@ -611,7 +611,7 @@ class MiniAppPage(private val host: MiniAppHost, app: MiniApp, override val path
         return JSONObject().put("to", target.id)
     }
 
-    /** Items for the native viewer: paths are permission-checked like AntiGem.fs, URLs like the network layer. */
+    /** Items for the native viewer: paths are permission-checked like Kestrel.fs, URLs like the network layer. */
     private fun mediaItems(a: JSONArray): List<MediaItem> = (0 until minOf(a.length(), 5000)).mapNotNull { i ->
         val o = a.opt(i)
         val src = (if (o is JSONObject) o.optString("src") else o?.toString()).orEmpty().trim()
@@ -642,7 +642,7 @@ class MiniAppPage(private val host: MiniAppHost, app: MiniApp, override val path
         }
     }
 
-    /** AntiGem.fs.pickFolder: the user chooses a folder in AntiGem's file explorer; the app gets the manifest's "pick" access to it. */
+    /** Kestrel.fs.pickFolder: the user chooses a folder in Kestrel's file explorer; the app gets the manifest's "pick" access to it. */
     private suspend fun pickFolder(): Any? {
         val access = app.storagePick ?: throw MiniAppError("NotAllowedError", "The manifest doesn't allow picking folders (permissions.storage.pick)")
         val folder = host.pickFolder("Choose a folder for ${app.name}") ?: return JSONObject.NULL
@@ -728,7 +728,7 @@ class MiniAppPage(private val host: MiniAppHost, app: MiniApp, override val path
     }
 
     /**
-     * AntiGem.mcp: only what the manifest declared and the user allowed (the whole server, its read-only tools, or
+     * Kestrel.mcp: only what the manifest declared and the user allowed (the whole server, its read-only tools, or
      * single tools), and, where asked for, the user's OK before each call.
      */
     private suspend fun mcp(m: String, p: JSONObject): Any? {
