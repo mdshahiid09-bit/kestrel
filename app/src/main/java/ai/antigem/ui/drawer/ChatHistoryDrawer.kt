@@ -59,6 +59,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
@@ -2487,6 +2488,74 @@ fun SearchChatsDialog(
                             }
                         }
                     }
+                }
+            }
+
+            // ---------------- Follow Shahid on Instagram Footer ----------------
+            Spacer(modifier = Modifier.height(8.dp))
+            val drawerContext = LocalContext.current
+            Surface(
+                shape = RoundedCornerShape(12.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                border = BorderStroke(1.dp, Color(0xFFE1306C).copy(alpha = 0.35f)),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        val igUrl = "https://www.instagram.com/s4_shahid2?gwpx=aG1yajZ3ZjBmNHJ2"
+                        val intent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(igUrl)).apply {
+                            setPackage("com.instagram.android")
+                        }
+                        try {
+                            drawerContext.startActivity(intent)
+                        } catch (_: Exception) {
+                            drawerContext.startActivity(android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(igUrl)))
+                        }
+                    }
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp, vertical = 9.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(30.dp)
+                            .clip(CircleShape)
+                            .background(
+                                Brush.linearGradient(
+                                    listOf(Color(0xFF833AB4), Color(0xFFFD1D1D), Color(0xFFFCB045))
+                                )
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "IG",
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = "Follow Shahid on Instagram",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            text = "@s4_shahid2 • Developer",
+                            fontSize = 10.5.sp,
+                            color = Color(0xFFE1306C)
+                        )
+                    }
+                    Icon(
+                        imageVector = Icons.Outlined.Public,
+                        contentDescription = "Follow on Instagram",
+                        tint = Color(0xFFE1306C),
+                        modifier = Modifier.size(16.dp)
+                    )
                 }
             }
         }

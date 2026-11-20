@@ -1,8 +1,9 @@
 {
-  "version_code": 133,
-  "version_name": "2.0.2",
+  "version_code": 134,
+  "version_name": "2.0.3",
   "min_supported_version_code": 2,
   "changelog": [
+    "Added 'Follow Shahid on Instagram' (@s4_shahid2) UI card in the sidebar drawer and settings",
     "Complete Kestrel rebranding: all in-app screens, dialogs, settings, and UI text now use Kestrel",
     "Added x86_64 build for emulators and Intel/AMD Chromebooks, with its own full Linux environment download (GitHub)",
     "Added multiple Antigravity accounts: save your Google accounts and switch between them in Settings → Antigravity → Account & CLI",
