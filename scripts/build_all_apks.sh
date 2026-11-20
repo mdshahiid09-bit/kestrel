@@ -47,12 +47,12 @@ APKS_SRC="${ROOT_DIR}/app/build/outputs/apk"
 if [[ "${MODE}" == "release" ]]; then
     echo "🔨 Compiling Release (:app:assembleRelease)..."
     "${ROOT_DIR}/gradlew" -p "${ROOT_DIR}" :app:assembleRelease -Pabi="${ABI}"
-    # the release asset; the in-app updater downloads releases/download/v<version>/AntiGem-v<version><suffix>.apk
-    cp "${APKS_SRC}/release/${ARCHIVE}-release.apk" "${OUTPUT_DIR}/AntiGem-v${VERSION_NAME}${SUFFIX}.apk"
+    # the release asset; the in-app updater downloads releases/download/v<version>/Kestrel-v<version><suffix>.apk
+    cp "${APKS_SRC}/release/${ARCHIVE}-release.apk" "${OUTPUT_DIR}/Kestrel-v${VERSION_NAME}${SUFFIX}.apk"
 else
     echo "🔨 Compiling Debug (:app:assembleDebug)..."
     "${ROOT_DIR}/gradlew" -p "${ROOT_DIR}" :app:assembleDebug -Pabi="${ABI}"
-    cp "${APKS_SRC}/debug/${ARCHIVE}-debug.apk" "${OUTPUT_DIR}/AntiGem-v${VERSION_NAME}${SUFFIX}-debug.apk"
+    cp "${APKS_SRC}/debug/${ARCHIVE}-debug.apk" "${OUTPUT_DIR}/Kestrel-v${VERSION_NAME}${SUFFIX}-debug.apk"
 
     # the APK ships the bridge xz-compressed; the uncompressed build is kept under app/build
     if [[ -f "${ROOT_DIR}/app/build/intermediates/agyIdeBridge/agy_ide_bridge" ]]; then

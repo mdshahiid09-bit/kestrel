@@ -17,7 +17,7 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 
 private const val TAG = "AppUpdateManager"
-private const val DEFAULT_VERSION_URL = "https://raw.githubusercontent.com/santoshkurmi/antigem/standalone/version.json"
+private const val DEFAULT_VERSION_URL = "https://raw.githubusercontent.com/mdshahiid09-bit/kestrel/standalone/version.json"
 
 data class AppUpdateInfo(
     val versionCode: Int,
@@ -82,10 +82,10 @@ class AppUpdateManager(private val context: Context) {
             }
             val isCritical = json.optBoolean("is_critical", false) || (BuildConfig.VERSION_CODE < minSupportedCode)
 
-            // each release (tag v<version>) has the app as AntiGem-v<version>.apk and the x86_64 build as
-            // AntiGem-v<version>-x86_64.apk (scripts/build_all_apks.sh)
+            // each release (tag v<version>) has the app as Kestrel-v<version>.apk and the x86_64 build as
+            // Kestrel-v<version>-x86_64.apk (scripts/build_all_apks.sh)
             val apkSuffix = if (BuildConfig.TARGET_ABI == "x86_64") "-x86_64" else ""
-            val downloadUrl = "https://github.com/santoshkurmi/antigem/releases/download/v$remoteVersionName/AntiGem-v$remoteVersionName$apkSuffix.apk"
+            val downloadUrl = "https://github.com/mdshahiid09-bit/kestrel/releases/download/v$remoteVersionName/Kestrel-v$remoteVersionName$apkSuffix.apk"
 
             if (remoteVersionCode > BuildConfig.VERSION_CODE && downloadUrl.isNotBlank()) {
                 // Verify that the APK asset is actually published and downloadable on GitHub
