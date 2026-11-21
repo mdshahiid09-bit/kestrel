@@ -1,8 +1,9 @@
 {
-  "version_code": 136,
-  "version_name": "2.0.5",
+  "version_code": 137,
+  "version_name": "2.0.6",
   "min_supported_version_code": 2,
   "changelog": [
+    "Added Kestrel Studio: prompt-to-app architect with interactive specification interview, React+Vite builder, localhost preview, and Firebase deployment",
     "Brand new Kestrel Cyber Falcon app icon with developer code brackets",
     "Splash screen updated: now cleanly displays KESTREL wordmark",
     "Settings & About: updated repository to github.com/mdshahiid09-bit/kestrel and added Shahid developer profile",

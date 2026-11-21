@@ -34,7 +34,9 @@ enum class AppViewMode {
     NOTES,
     FILES,
     /** The Run screen: a folder's commands and their live output (runs keep going on other screens) */
-    RUN
+    RUN,
+    /** Kestrel Studio: AI prompt-to-app architect with interactive interview, React+Vite builder & Firebase deploy */
+    STUDIO
 }
 
 class MainActivity : ComponentActivity() {
@@ -110,6 +112,7 @@ class MainActivity : ComponentActivity() {
                     "NOTES" -> AppViewMode.NOTES
                     "FILES" -> AppViewMode.FILES
                     "RUN" -> AppViewMode.RUN
+                    "STUDIO" -> AppViewMode.STUDIO
                     else -> AppViewMode.CHAT
                 }
             }
@@ -152,6 +155,11 @@ class MainActivity : ComponentActivity() {
                         "RUN" -> {
                             previousViewMode = currentViewMode
                             currentViewMode = AppViewMode.RUN
+                        }
+
+                        "STUDIO" -> {
+                            previousViewMode = currentViewMode
+                            currentViewMode = AppViewMode.STUDIO
                         }
                     }
                     chatViewModel.consumeRequestedViewMode()
@@ -267,9 +275,9 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     } else {
-                        BackHandler(enabled = currentViewMode != AppViewMode.CHAT && currentViewMode != AppViewMode.BROWSER) {
+                        BackHandler(enabled = currentViewMode != AppViewMode.CHAT && currentViewMode != AppViewMode.BROWSER && currentViewMode != AppViewMode.STUDIO) {
                             currentViewMode =
-                                if (previousViewMode != currentViewMode && previousViewMode != AppViewMode.BROWSER) previousViewMode else AppViewMode.CHAT
+                                if (previousViewMode != currentViewMode && previousViewMode != AppViewMode.BROWSER && previousViewMode != AppViewMode.STUDIO) previousViewMode else AppViewMode.CHAT
                         }
 
                         val terminalSessions by ai.antigem.data.local.LocalTerminalManager.sessions.collectAsState()
@@ -500,6 +508,33 @@ class MainActivity : ComponentActivity() {
                                             }
                                         )
                                     }
+                                }
+
+                                // Persistent Kestrel Studio Screen (AI App & Web Builder)
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .graphicsLayer {
+                                            val isVisible = currentViewMode == AppViewMode.STUDIO
+                                            alpha = if (isVisible) 1f else 0f
+                                            translationX = if (isVisible) 0f else 20000f
+                                        }
+                                ) {
+                                    ai.antigem.ui.studio.KestrelStudioScreen(
+                                        isVisible = currentViewMode == AppViewMode.STUDIO,
+                                        onClose = {
+                                            currentViewMode =
+                                                if (previousViewMode == AppViewMode.STUDIO) AppViewMode.CHAT else previousViewMode
+                                        },
+                                        onOpenBrowser = { _ ->
+                                            previousViewMode = currentViewMode
+                                            currentViewMode = AppViewMode.BROWSER
+                                        },
+                                        onOpenTerminal = {
+                                            previousViewMode = currentViewMode
+                                            currentViewMode = AppViewMode.TERMINAL
+                                        }
+                                    )
                                 }
 
                                 // Floating App Switcher Across Whole App (always on; renders on top of Chat, IDE, Terminal, Browser)

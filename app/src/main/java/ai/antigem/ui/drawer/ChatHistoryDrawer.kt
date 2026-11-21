@@ -47,6 +47,7 @@ import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material.icons.outlined.ChatBubbleOutline
 import androidx.compose.material.icons.outlined.Cloud
 import androidx.compose.material.icons.outlined.Public
+import androidx.compose.material.icons.outlined.AutoAwesome
 import ai.antigem.ui.components.AppToastHelper
 import ai.antigem.ui.components.ChatToastType
 import android.widget.Toast
@@ -2487,6 +2488,77 @@ fun SearchChatsDialog(
                                 }
                             }
                         }
+                    }
+                }
+            }
+
+            // ---------------- Kestrel Studio Launcher ----------------
+            Spacer(modifier = Modifier.height(8.dp))
+            val studioDrawerContext = LocalContext.current
+            Surface(
+                shape = RoundedCornerShape(12.dp),
+                color = Color(0xFF00F5D4).copy(alpha = 0.12f),
+                border = BorderStroke(1.dp, Color(0xFF00F5D4).copy(alpha = 0.45f)),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        try {
+                            val app = studioDrawerContext.applicationContext as? android.app.Application
+                            if (app != null) {
+                                ai.antigem.ui.chat.ChatViewModelHolder.get(app).requestViewMode("STUDIO")
+                            }
+                        } catch (_: Exception) {}
+                    }
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp, vertical = 9.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(30.dp)
+                            .clip(CircleShape)
+                            .background(
+                                Brush.linearGradient(
+                                    listOf(Color(0xFF00F5D4), Color(0xFF00BBF9))
+                                )
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.AutoAwesome,
+                            contentDescription = null,
+                            tint = Color.Black,
+                            modifier = Modifier.size(17.dp)
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = "Kestrel Studio",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            text = "AI App & Web Builder",
+                            fontSize = 10.5.sp,
+                            color = Color(0xFF00F5D4)
+                        )
+                    }
+                    Surface(
+                        shape = RoundedCornerShape(6.dp),
+                        color = Color(0xFF00F5D4).copy(alpha = 0.2f)
+                    ) {
+                        Text(
+                            text = "OPEN",
+                            fontSize = 9.5.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF00F5D4),
+                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 3.dp)
+                        )
                     }
                 }
             }
